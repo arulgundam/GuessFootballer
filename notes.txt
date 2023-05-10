@@ -1,0 +1,5 @@
+in the tmarkt csv file, 
+
+the 'name' variable features the name of the player. 
+
+the 'url' variable has a link to a picture of the player.

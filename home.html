@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Guess The Footballer.</title>
+</head>
+
+<body>
+    <h1>Guess The Footballer.</h1>
+
+    <p>
+        gonna try and learn html/css/js to make a website.
+        this is test one.
+    </p>
+
+    <a>
+        <button onclick="toggleText()" style="background-color: aquamarine; color: black; border-radius: 5px;">
+          click me
+        </button>
+        <p id="test">Hello</p>
+      
+        <script>
+          function toggleText() {
+            var element = document.getElementById("test");
+            if (element.innerHTML == "Hello") {
+              element.innerHTML = "Goodbye";
+            } else {
+              element.innerHTML = "Hello";
+            }
+          }
+        </script>
+    </a>      
+
+    <p>Guess the name of a professional footballer:</p>
+        <input type="text" id="playerName">
+        <button onclick="checkGuess()">Submit</button>
+    <p id="result"></p>
+
+    <script>
+        function checkGuess() {
+            var playerName = document.getElementById("playerName").value;
+            var correctName = "Messi"; // replace with actual player name to be guessed
+            var result = document.getElementById("result");
+
+            if (playerName === "") {
+              result.innerHTML = "Please enter a player name.";
+              return;
+            }
+
+            if (playerName.toLowerCase() == correctName.toLowerCase()) {
+            result.innerHTML = "Congratulations, you guessed correctly!";
+            var image = document.createElement("img");
+            // replace below with actual link
+            image.src = "https://img.a.transfermarkt.technology/portrait/header/28003-1671435885.jpg?lm=1,2022,https://www.transfermarkt.co.uk/lionel-messi/profil/spieler/28003";
+            result.appendChild(image);
+            } else {
+              result.innerHTML = `Sorry, your guess of "${playerName}" is incorrect.`;
+            }
+        }
+    </script>
+
+    <script>
+      function readCSVFile() {
+        // Hardcoded path to CSV file
+        var csvFilePath = 'tmarkt_players_05_09_2023.csv';
+        
+        // Create a new XMLHttpRequest object
+        var xhttp = new XMLHttpRequest();
+        
+        // Handle the onreadystatechange event
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            // The request was successful, so parse the CSV data
+            var csvdata = xhttp.responseText;
+            var rowData = csvdata.split('\n');
+        
+            // <table > <tbody>
+            var tbodyEl = document.getElementById('tblcsvdata').getElementsByTagName('tbody')[0];
+            tbodyEl.innerHTML = "";
+        
+            // Loop through the rows and add them to the table
+            for (var i = 0; i < rowData.length; i++) {
+              var row = rowData[i].split(',');
+              var trEl = document.createElement('tr');
+              for (var j = 0; j < row.length; j++) {
+                var tdEl = document.createElement('td');
+                tdEl.appendChild(document.createTextNode(row[j]));
+                trEl.appendChild(tdEl);
+              }
+              tbodyEl.appendChild(trEl);
+            }
+          }
+        };
+        
+        // Open and send the request to the CSV file
+        xhttp.open('GET', csvFilePath, true);
+        xhttp.send();
+    }
+  </script>
+
+</body>
+
+</html>
