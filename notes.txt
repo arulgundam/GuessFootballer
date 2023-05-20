@@ -6,7 +6,7 @@ the 'url' variable has a link to a picture of the player.
 
 to run:
     open GuessFootballer in explorer
-    rightclick on open space -> run in Powershell
+    shift + rightclick on open space -> run in Powershell
     type python3 -m http.server
     127.0.0.1:8000/home.html to run in chrome
     ctrl=+c to exit shell

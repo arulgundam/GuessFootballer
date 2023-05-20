@@ -28,10 +28,11 @@
     }
 
     #reveal-button {
-      display: none;
-      margin-top: 20px;
-      text-align: center; 
+      display: block;
+      margin: 20px auto;
+      text-align: center;
     }
+
   </style>
 </head>
 <body>
@@ -109,9 +110,8 @@
       revealButton.style.display = "none";
     }
 
-    // Function to sanitize input by removing odd symbols and replacing accented characters
     function sanitizeInput(input) {
-      //TODO
+      return input.normalize("NFD").replace(/\p{Diacritic}/gu, "");
     }
   </script>
 </body>
