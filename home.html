@@ -159,11 +159,53 @@
         }
       } else {
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
+        displayTakenClues(); // Display all previously given clues
       }
 
       guessInput.value = "";
       guessCount++;
       guessCountElement.textContent = guessCount;
+    }
+
+    function displayTakenClues() {
+      if (takenClues.length === 0) {
+        return; // Exit if no clues have been taken
+      }
+
+      var cluesHTML = "<p>Your clue(s):<br>";
+
+      var uniqueClueTypes = [...new Set(takenClues)]; // Get unique clue types
+
+      for (var i = 0; i < uniqueClueTypes.length; i++) {
+        var clueType = uniqueClueTypes[i];
+        var clue;
+
+        switch (clueType) {
+          case "Club":
+            clue = player.current_club_name;
+            break;
+          case "Position":
+            clue = player.position;
+            break;
+          case "Birthday":
+            clue = player.date_of_birth;
+            break;
+          case "Birthplace":
+            clue = player.city_of_birth + ", " + player.country_of_birth;
+            break;
+          case "Peak Market Value (Euros)":
+            clue = player.highest_market_value_in_eur;
+            break;
+          default:
+            clue = "No clue available";
+            break;
+        }
+
+        cluesHTML += clueType + " - " + clue + "<br>";
+      }
+
+      cluesHTML += "</p>";
+      resultDiv.innerHTML = cluesHTML; // Update the resultDiv content with the new clues
     }
 
 
