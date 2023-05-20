@@ -26,6 +26,10 @@
       margin: 20px auto;
       display: block;
     }
+
+    #reveal-button {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -39,9 +43,12 @@
 
   <div id="result"></div>
 
+  <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
+
   <script>
-    var csvURL = '.\\test_tmarkt.csv';
+    var csvURL = 'test_tmarkt.csv';
     var resultDiv = document.getElementById("result");
+    var revealButton = document.getElementById("reveal-button");
 
     fetch(csvURL)
       .then(response => response.text())
@@ -78,19 +85,51 @@
       player = players[playerIndex];
       guessInput.disabled = false;
       resultDiv.innerHTML = "";
+      revealButton.style.display = "inline-block";
     }
 
     function checkGuess() {
-      var guess = guessInput.value.trim();
+      var guess = sanitizeInput(guessInput.value.trim());
 
-      if (guess.toLowerCase() === player.name.toLowerCase()) {
-        resultDiv.innerHTML = "<p>Correct!</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+      if (guess.toLowerCase() === sanitizeInput(player.name.toLowerCase())) {
+        resultDiv.innerHTML = "<p>Correct! The player's name is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
         guessInput.disabled = true;
+        revealButton.style.display = "none";
       } else {
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
       }
 
       guessInput.value = "";
+    }
+
+    function revealPlayer() {
+      resultDiv.innerHTML = "<p>The correct player is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+      revealButton.style.display = "none";
+    }
+
+    // Function to sanitize input by removing odd symbols and replacing accented characters
+    function sanitizeInput(input) {
+      var replacements = [
+        { from: /\s/g, to: "" },
+        { from: /[àáâãäå]/g, to: 'a' },
+        { from: /æ/g, to: 'ae' },
+        { from: /ç/g, to: 'c' },
+        { from: /[èéêë]/g, to: 'e' },
+        { from: /[ìíîï]/g, to: 'i' },
+        { from: /ñ/g, to: 'n' },
+        { from: /[òóôõö]/g, to: 'o' },
+        { from: /œ/g, to: 'oe' },
+        { from: /[ùúûü]/g, to: 'u' },
+        { from: /[ýÿ]/g, to: 'y' },
+        { from: /\W/g, to: "" }
+      ];
+
+      // Replace accented characters and other non-word characters
+      for (var i = 0; i < replacements.length; i++) {
+        input = input.replace(replacements[i].from, replacements[i].to);
+      }
+
+      return input;
     }
   </script>
 </body>
