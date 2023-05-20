@@ -29,6 +29,8 @@
 
     #reveal-button {
       display: none;
+      margin-top: 20px;
+      text-align: center; /* Center the button horizontally */
     }
   </style>
 </head>
@@ -109,27 +111,7 @@
 
     // Function to sanitize input by removing odd symbols and replacing accented characters
     function sanitizeInput(input) {
-      var replacements = [
-        { from: /\s/g, to: "" },
-        { from: /[àáâãäå]/g, to: 'a' },
-        { from: /æ/g, to: 'ae' },
-        { from: /ç/g, to: 'c' },
-        { from: /[èéêë]/g, to: 'e' },
-        { from: /[ìíîï]/g, to: 'i' },
-        { from: /ñ/g, to: 'n' },
-        { from: /[òóôõö]/g, to: 'o' },
-        { from: /œ/g, to: 'oe' },
-        { from: /[ùúûü]/g, to: 'u' },
-        { from: /[ýÿ]/g, to: 'y' },
-        { from: /\W/g, to: "" }
-      ];
-
-      // Replace accented characters and other non-word characters
-      for (var i = 0; i < replacements.length; i++) {
-        input = input.replace(replacements[i].from, replacements[i].to);
-      }
-
-      return input;
+      //TODO
     }
   </script>
 </body>
