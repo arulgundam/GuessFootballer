@@ -33,6 +33,11 @@
       text-align: center;
     }
 
+    #clue-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
     #clue-buttons {
       text-align: center;
       margin-top: 20px;
@@ -50,7 +55,7 @@
     #clue-label {
       display: block;
       text-align: center;
-      margin-top: 20px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -68,16 +73,18 @@
   <p>Guesses Taken: <span id="guess-count">0</span></p>
   <p>Clues Taken: <span id="clue-count">0</span></p>
 
-  <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
-
-  <label for="clue-buttons">Use a Clue:</label>
-  <div id="clue-buttons">
-    <button class="clue-button" onclick="provideClue('Club')">Club</button>
-    <button class="clue-button" onclick="provideClue('Position')">Position</button>
-    <button class="clue-button" onclick="provideClue('Birthday')">Birthday</button>
-    <button class="clue-button" onclick="provideClue('Birthplace')">Birthplace</button>
-    <button class="clue-button" onclick="provideClue('Peak Market Value (Euros)')">Peak Market Value (Euros)</button>
+  <div id="clue-section">
+    <label id="clue-label" for="clue-buttons">Use a Clue:</label> <!-- Updated label for clue buttons -->
+    <div id="clue-buttons">
+      <button class="clue-button" onclick="provideClue('Club')">Club</button>
+      <button class="clue-button" onclick="provideClue('Position')">Position</button>
+      <button class="clue-button" onclick="provideClue('Birthday')">Birthday</button>
+      <button class="clue-button" onclick="provideClue('Birthplace')">Birthplace</button>
+      <button class="clue-button" onclick="provideClue('Peak Market Value (Euros)')">Peak Market Value (Euros)</button>
+    </div>
   </div>
+
+  <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
 
   <script>
     var csvURL = 'test_tmarkt.csv';
