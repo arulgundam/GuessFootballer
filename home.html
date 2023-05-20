@@ -1,104 +1,97 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-    <title>Guess The Footballer.</title>
+  <title>Soccer Player Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #guess-form {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #player-image {
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Guess The Footballer.</h1>
+  <h1>Soccer Player Guessing Game</h1>
 
-    <p>
-        gonna try and learn html/css/js to make a website.
-        this is test one.
-    </p>
+  <div id="guess-form">
+    <label for="guess">Guess a soccer player:</label>
+    <input type="text" id="guess" placeholder="Enter player name">
+    <button onclick="checkGuess()">Submit</button>
+  </div>
 
-    <a>
-        <button onclick="toggleText()" style="background-color: aquamarine; color: black; border-radius: 5px;">
-          click me
-        </button>
-        <p id="test">Hello</p>
-      
-        <script>
-          function toggleText() {
-            var element = document.getElementById("test");
-            if (element.innerHTML == "Hello") {
-              element.innerHTML = "Goodbye";
-            } else {
-              element.innerHTML = "Hello";
-            }
+  <div id="result"></div>
+
+  <script>
+    var csvURL = 'C:\Users\arulg\OneDrive\GuessFootballer\test_tmarkt.csv';
+    var resultDiv = document.getElementById("result");
+
+    fetch(csvURL)
+      .then(response => response.text())
+      .then(data => {
+        var lines = data.trim().split('\n');
+        var headers = lines[0].split(',');
+        var players = [];
+
+        for (var i = 1; i < lines.length; i++) {
+          var currentLine = lines[i].split(',');
+          var player = {};
+
+          for (var j = 0; j < headers.length; j++) {
+            player[headers[j]] = currentLine[j];
           }
-        </script>
-    </a>      
 
-    <p>Guess the name of a professional footballer:</p>
-        <input type="text" id="playerName">
-        <button onclick="checkGuess()">Submit</button>
-    <p id="result"></p>
-
-    <script>
-        function checkGuess() {
-            var playerName = document.getElementById("playerName").value;
-            var correctName = "Messi"; // replace with actual player name to be guessed
-            var result = document.getElementById("result");
-
-            if (playerName === "") {
-              result.innerHTML = "Please enter a player name.";
-              return;
-            }
-
-            if (playerName.toLowerCase() == correctName.toLowerCase()) {
-            result.innerHTML = "Congratulations, you guessed correctly!";
-            var image = document.createElement("img");
-            // replace below with actual link
-            image.src = "https://img.a.transfermarkt.technology/portrait/header/28003-1671435885.jpg?lm=1,2022,https://www.transfermarkt.co.uk/lionel-messi/profil/spieler/28003";
-            result.appendChild(image);
-            } else {
-              result.innerHTML = `Sorry, your guess of "${playerName}" is incorrect.`;
-            }
+          players.push(player);
         }
-    </script>
 
-    <script>
-      function readCSVFile() {
-        // Hardcoded path to CSV file
-        var csvFilePath = 'test_tmarkt.csv';
-        
-        // Create a new XMLHttpRequest object
-        var xhttp = new XMLHttpRequest();
-        
-        // Handle the onreadystatechange event
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            // The request was successful, so parse the CSV data
-            var csvdata = xhttp.responseText;
-            var rowData = csvdata.split('\n');
-        
-            // <table > <tbody>
-            var tbodyEl = document.getElementById('tblcsvdata').getElementsByTagName('tbody')[0];
-            tbodyEl.innerHTML = "";
-        
-            // Loop through the rows and add them to the table
-            for (var i = 0; i < rowData.length; i++) {
-              var row = rowData[i].split(',');
-              var trEl = document.createElement('tr');
-              for (var j = 0; j < row.length; j++) {
-                var tdEl = document.createElement('td');
-                tdEl.appendChild(document.createTextNode(row[j]));
-                trEl.appendChild(tdEl);
-              }
-              tbodyEl.appendChild(trEl);
-            }
-          }
-        };
-        
-        // Open and send the request to the CSV file
-        xhttp.open('GET', csvFilePath, true);
-        xhttp.send();
+        // Call the function to start the game with the parsed player data
+        startGame(players);
+      })
+      .catch(error => {
+        console.error('Error fetching CSV data:', error);
+      });
+
+    var playerIndex;
+    var player;
+    var guessInput = document.getElementById("guess");
+    var guessButton = document.querySelector("button");
+
+    function startGame(players) {
+      playerIndex = Math.floor(Math.random() * players.length);
+      player = players[playerIndex];
+      guessInput.disabled = false;
+      resultDiv.innerHTML = "";
+    }
+
+    function checkGuess() {
+      var guess = guessInput.value.trim();
+
+      if (guess.toLowerCase() === player.name.toLowerCase()) {
+        resultDiv.innerHTML = "<p>Correct!</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+        guessInput.disabled = true;
+      } else {
+        resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
+      }
+
+      guessInput.value = "";
     }
   </script>
-
 </body>
-
 </html>
