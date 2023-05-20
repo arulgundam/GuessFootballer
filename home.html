@@ -46,6 +46,12 @@
       pointer-events: none;
       opacity: 0.5;
     }
+
+    #clue-label {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +70,7 @@
 
   <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
 
+  <label for="clue-buttons">Use a Clue:</label>
   <div id="clue-buttons">
     <button class="clue-button" onclick="provideClue('Club')">Club</button>
     <button class="clue-button" onclick="provideClue('Position')">Position</button>
