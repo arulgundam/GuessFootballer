@@ -33,25 +33,56 @@
       text-align: center;
     }
 
+    #clue-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .clue-button {
+      margin: 5px;
+    }
+
+    .clue-button.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
-  <h1>Soccer Player Guessing Game</h1>
+  <h1>Guess the Footballer</h1>
 
   <div id="guess-form">
-    <label for="guess">Guess a soccer player:</label>
+    <label for="guess">Guess:</label>
     <input type="text" id="guess" placeholder="Enter player name">
     <button onclick="checkGuess()">Submit</button>
   </div>
 
   <div id="result"></div>
 
+  <p>Guesses Taken: <span id="guess-count">0</span></p>
+  <p>Clues Taken: <span id="clue-count">0</span></p>
+
   <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
+
+  <div id="clue-buttons">
+    <button class="clue-button" onclick="provideClue('Club')">Club</button>
+    <button class="clue-button" onclick="provideClue('Position')">Position</button>
+    <button class="clue-button" onclick="provideClue('Birthday')">Birthday</button>
+    <button class="clue-button" onclick="provideClue('Birthplace')">Birthplace</button>
+    <button class="clue-button" onclick="provideClue('Peak Market Value (Euros)')">Peak Market Value (Euros)</button>
+  </div>
 
   <script>
     var csvURL = 'test_tmarkt.csv';
     var resultDiv = document.getElementById("result");
     var revealButton = document.getElementById("reveal-button");
+    var clueButtons = document.getElementsByClassName("clue-button");
+    var guessCountElement = document.getElementById("guess-count");
+    var clueCountElement = document.getElementById("clue-count");
+
+    var guessCount = 0; // Variable to track the number of guesses
+    var clueCount = 0; // Variable to track the number of clues taken
+    var takenClues = []; // Array to store the clues that have been taken
 
     fetch(csvURL)
       .then(response => response.text())
@@ -89,29 +120,100 @@
       guessInput.disabled = false;
       resultDiv.innerHTML = "";
       revealButton.style.display = "inline-block";
+      for (var i = 0; i < clueButtons.length; i++) {
+        clueButtons[i].style.display = "inline-block";
+        clueButtons[i].classList.remove("disabled");
+      }
+      takenClues = [];
+      guessCount = 0;
+      clueCount = 0;
+      guessCountElement.textContent = guessCount;
+      clueCountElement.textContent = clueCount;
     }
 
     function checkGuess() {
       var guess = sanitizeInput(guessInput.value.trim());
+      var playerName = sanitizeInput(player.name.toLowerCase());
+      var playerLastName = sanitizeInput(player.last_name.toLowerCase());
 
-      if (guess.toLowerCase() === sanitizeInput(player.name.toLowerCase())) {
-        resultDiv.innerHTML = "<p>Correct! The player's name is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+      if (guess.toLowerCase() === playerName || guess.toLowerCase() === playerLastName) {
+        resultDiv.innerHTML = "<p>Correct! The player is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
         guessInput.disabled = true;
         revealButton.style.display = "none";
+        for (var i = 0; i < clueButtons.length; i++) {
+          clueButtons[i].style.display = "none";
+        }
       } else {
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
       }
 
       guessInput.value = "";
+      guessCount++;
+      guessCountElement.textContent = guessCount;
     }
+
 
     function revealPlayer() {
       resultDiv.innerHTML = "<p>The correct player is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
       revealButton.style.display = "none";
+      for (var i = 0; i < clueButtons.length; i++) {
+        clueButtons[i].style.display = "none";
+      }
     }
 
+    function provideClue(clueType) {
+      if (takenClues.includes(clueType)) {
+        return; // Exit if the clue has already been taken
+      }
+
+      var clue;
+
+      switch (clueType) {
+        case "Club":
+          clue = player.current_club_name;
+          break;
+        case "Position":
+          clue = player.position;
+          break;
+        case "Birthday":
+          clue = player.date_of_birth;
+          break;
+        case "Birthplace":
+          clue = player.city_of_birth + ", " + player.country_of_birth;
+          break;
+        case "Peak Market Value (Euros)":
+          clue = player.highest_market_value_in_eur;
+          break;
+        default:
+          clue = "No clue available";
+          break;
+      }
+
+      resultDiv.innerHTML += "<p>Your clue is: " + clueType + " - " + clue + "</p>";
+      clueCount++;
+      clueCountElement.textContent = clueCount;
+      takenClues.push(clueType);
+
+      // Disable the selected clue button
+      for (var i = 0; i < clueButtons.length; i++) {
+        if (clueButtons[i].textContent === clueType) {
+          clueButtons[i].classList.add("disabled");
+          clueButtons[i].disabled = true;
+          break;
+        }
+      }
+
+      if (clueCount >= 5) {
+        for (var i = 0; i < clueButtons.length; i++) {
+          clueButtons[i].classList.add("disabled");
+          clueButtons[i].disabled = true;
+        }
+      }
+    }
+
+
     function sanitizeInput(input) {
-      return input.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+      return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9 ]/g, '');
     }
   </script>
 </body>
