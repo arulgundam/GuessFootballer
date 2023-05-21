@@ -1,0 +1,10 @@
+TODO:
+    - difficulty settings (by transfer value)
+        - normal (20-30 million and above)
+        - difficult
+        - impossible
+        - random
+    - allow for input without diacritics/accents/etc to still be valid
+    - about page
+    - contact page 
+        - feedback form
