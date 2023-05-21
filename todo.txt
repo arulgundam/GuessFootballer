@@ -5,6 +5,8 @@ TODO:
         - impossible
         - random
     - allow for input without diacritics/accents/etc to still be valid
+    - sometimes the player just doesn't work
     - about page
     - contact page 
         - feedback form
+    - css stuff
