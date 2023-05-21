@@ -10,7 +10,3 @@ to run:
     type python3 -m http.server
     127.0.0.1:8000/home.html to run in chrome
     ctrl=+c to exit shell
-
-TODO:
-    - difficulty settings (by transfer value maybe)
-    - allow for input without diacritics/accents/etc to still be valid

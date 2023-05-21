@@ -80,7 +80,7 @@
       <button class="clue-button" onclick="provideClue('Position')">Position</button>
       <button class="clue-button" onclick="provideClue('Birthday')">Birthday</button>
       <button class="clue-button" onclick="provideClue('Birthplace')">Birthplace</button>
-      <button class="clue-button" onclick="provideClue('Peak Market Value (Euros)')">Peak Market Value (Euros)</button>
+      <button class="clue-button" onclick="provideClue('Peak Market Value')">Peak Market Value</button>
     </div>
   </div>
 
@@ -175,57 +175,61 @@
     }
 
     function displayTakenClues() {
-  if (takenClues.length === 0) {
-    resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
-    return; // Exit if no clues have been taken
-  }
+      if (takenClues.length === 0) {
+        resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
+        return; // Exit if no clues have been taken
+      }
 
-  var cluesHTML = "<p>Incorrect. Keep guessing!</p><p>Your clue(s):<br>";
+      var cluesHTML = "<p>Incorrect. Keep guessing!</p><p>Your clue(s):<br>";
 
-  var uniqueClueTypes = [...new Set(takenClues)]; // Get unique clue types
+      var uniqueClueTypes = [...new Set(takenClues)]; // Get unique clue types
 
-  for (var i = 0; i < uniqueClueTypes.length; i++) {
-    var clueType = uniqueClueTypes[i];
-    var clue;
+      for (var i = 0; i < uniqueClueTypes.length; i++) {
+        var clueType = uniqueClueTypes[i];
+        var clue;
 
-    switch (clueType) {
-      case "Club":
-        clue = player.current_club_name;
-        break;
-      case "Position":
-        clue = player.position;
-        break;
-      case "Birthday":
-        clue = player.date_of_birth;
-        break;
-      case "Birthplace":
-        clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
-        break;
-      case "Peak Market Value (Euros)":
-        clue = player.highest_market_value_in_eur;
-        break;
-      default:
-        clue = "No clue available";
-        break;
+        switch (clueType) {
+          case "Club":
+            clue = player.current_club_name;
+            break;
+          case "Position":
+            clue = player.position;
+            break;
+          case "Birthday":
+            clue = player.date_of_birth;
+            break;
+          case "Birthplace":
+            clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
+            break;
+          case "Peak Market Value":
+            clue = addCommasToNumber(player.highest_market_value_in_eur);
+            break;
+          default:
+            clue = "No clue available";
+            break;
+        }
+
+        cluesHTML += clueType + " - " + clue + "<br>";
+      }
+
+      cluesHTML += "</p>";
+      resultDiv.innerHTML = cluesHTML; // Update the resultDiv content with the new clues
     }
 
-    cluesHTML += clueType + " - " + clue + "<br>";
-  }
-
-  cluesHTML += "</p>";
-  resultDiv.innerHTML = cluesHTML; // Update the resultDiv content with the new clues
-}
-
-
+    function addCommasToNumber(number) {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     function revealPlayer() {
-      resultDiv.innerHTML = "<p>The correct player is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+      var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
+      resultDiv.innerHTML = "<p>The correct player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
       revealButton.style.display = "none";
       for (var i = 0; i < clueButtons.length; i++) {
         clueButtons[i].style.display = "none";
       }
       document.getElementById("clue-section").style.display = "none";
     }
+
 
     function provideClue(clueType) {
       if (takenClues.includes(clueType)) {
@@ -242,13 +246,20 @@
           clue = player.position;
           break;
         case "Birthday":
-          clue = player.date_of_birth;
-          break;
+        var birthdayParts = player.date_of_birth.split("-");
+        var month = getMonthName(birthdayParts[1]);
+        var day = parseInt(birthdayParts[2], 10);
+        var year = birthdayParts[0];
+        clue = month + " " + day + ", " + year;
+        break;
         case "Birthplace":
           clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
           break;
-        case "Peak Market Value (Euros)":
-          clue = player.highest_market_value_in_eur;
+        case "Peak Market Value":
+          clue = "&euro;" + addCommasToNumber(player.highest_market_value_in_eur);
+          if (clue.endsWith(".0")) {
+            clue = clue.slice(0, -2); // Remove the decimal part if it's .0
+          }
           break;
         default:
           clue = "No clue available";
@@ -305,7 +316,16 @@
     }
 
     function sanitizeInput(input) {
-      return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9 ]/g, '');
+      return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function getMonthName(monthNumber) {
+      var months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+
+      return months[parseInt(monthNumber, 10) - 1];
     }
   </script>
 </body>
