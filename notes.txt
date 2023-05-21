@@ -12,5 +12,5 @@ to run:
     ctrl=+c to exit shell
 
 TODO:
-    - past clues should still be displayed when the guess is incorrect. 
+    - difficulty settings (by transfer value maybe)
     - allow for input without diacritics/accents/etc to still be valid

@@ -71,7 +71,7 @@
   <div id="result"></div>
 
   <p>Guesses Taken: <span id="guess-count">0</span></p>
-  <p>Clues Taken: <span id="clue-count">0</span></p>
+  <p>Clues Used: <span id="clue-count">0</span></p>
 
   <div id="clue-section">
     <label id="clue-label" for="clue-buttons">Use a Clue:</label> <!-- Updated label for clue buttons -->
@@ -85,9 +85,10 @@
   </div>
 
   <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
+  <button onclick="startNewGame()">New Game</button> <!-- New Game button -->
 
   <script>
-    var csvURL = 'test_tmarkt.csv';
+    var csvURL = 'tmarkt_players_05_09_2023.csv';
     var resultDiv = document.getElementById("result");
     var revealButton = document.getElementById("reveal-button");
     var clueButtons = document.getElementsByClassName("clue-button");
@@ -143,6 +144,11 @@
       clueCount = 0;
       guessCountElement.textContent = guessCount;
       clueCountElement.textContent = clueCount;
+      document.getElementById("clue-section").style.display = "block"; // Show the clue section
+      // Enable all clue buttons
+      for (var i = 0; i < clueButtons.length; i++) {
+        clueButtons[i].disabled = false;
+      }
     }
 
     function checkGuess() {
@@ -157,6 +163,7 @@
         for (var i = 0; i < clueButtons.length; i++) {
           clueButtons[i].style.display = "none";
         }
+        document.getElementById("clue-section").style.display = "none";
       } else {
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
         displayTakenClues(); // Display all previously given clues
@@ -168,45 +175,47 @@
     }
 
     function displayTakenClues() {
-      if (takenClues.length === 0) {
-        return; // Exit if no clues have been taken
-      }
+  if (takenClues.length === 0) {
+    resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
+    return; // Exit if no clues have been taken
+  }
 
-      var cluesHTML = "<p>Your clue(s):<br>";
+  var cluesHTML = "<p>Incorrect. Keep guessing!</p><p>Your clue(s):<br>";
 
-      var uniqueClueTypes = [...new Set(takenClues)]; // Get unique clue types
+  var uniqueClueTypes = [...new Set(takenClues)]; // Get unique clue types
 
-      for (var i = 0; i < uniqueClueTypes.length; i++) {
-        var clueType = uniqueClueTypes[i];
-        var clue;
+  for (var i = 0; i < uniqueClueTypes.length; i++) {
+    var clueType = uniqueClueTypes[i];
+    var clue;
 
-        switch (clueType) {
-          case "Club":
-            clue = player.current_club_name;
-            break;
-          case "Position":
-            clue = player.position;
-            break;
-          case "Birthday":
-            clue = player.date_of_birth;
-            break;
-          case "Birthplace":
-            clue = player.city_of_birth + ", " + player.country_of_birth;
-            break;
-          case "Peak Market Value (Euros)":
-            clue = player.highest_market_value_in_eur;
-            break;
-          default:
-            clue = "No clue available";
-            break;
-        }
-
-        cluesHTML += clueType + " - " + clue + "<br>";
-      }
-
-      cluesHTML += "</p>";
-      resultDiv.innerHTML = cluesHTML; // Update the resultDiv content with the new clues
+    switch (clueType) {
+      case "Club":
+        clue = player.current_club_name;
+        break;
+      case "Position":
+        clue = player.position;
+        break;
+      case "Birthday":
+        clue = player.date_of_birth;
+        break;
+      case "Birthplace":
+        clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
+        break;
+      case "Peak Market Value (Euros)":
+        clue = player.highest_market_value_in_eur;
+        break;
+      default:
+        clue = "No clue available";
+        break;
     }
+
+    cluesHTML += clueType + " - " + clue + "<br>";
+  }
+
+  cluesHTML += "</p>";
+  resultDiv.innerHTML = cluesHTML; // Update the resultDiv content with the new clues
+}
+
 
 
     function revealPlayer() {
@@ -215,6 +224,7 @@
       for (var i = 0; i < clueButtons.length; i++) {
         clueButtons[i].style.display = "none";
       }
+      document.getElementById("clue-section").style.display = "none";
     }
 
     function provideClue(clueType) {
@@ -235,7 +245,7 @@
           clue = player.date_of_birth;
           break;
         case "Birthplace":
-          clue = player.city_of_birth + ", " + player.country_of_birth;
+          clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
           break;
         case "Peak Market Value (Euros)":
           clue = player.highest_market_value_in_eur;
@@ -245,7 +255,7 @@
           break;
       }
 
-      resultDiv.innerHTML += "<p>Your clue is: " + clueType + " - " + clue + "</p>";
+      resultDiv.innerHTML += "<p>New clue: " + clueType + " - " + clue + "</p>";
       clueCount++;
       clueCountElement.textContent = clueCount;
       takenClues.push(clueType);
@@ -267,6 +277,32 @@
       }
     }
 
+    function startNewGame() {
+      fetch(csvURL)
+        .then(response => response.text())
+        .then(data => {
+          var lines = data.trim().split('\n');
+          var headers = lines[0].split(',');
+          var players = [];
+
+          for (var i = 1; i < lines.length; i++) {
+            var currentLine = lines[i].split(',');
+            var player = {};
+
+            for (var j = 0; j < headers.length; j++) {
+              player[headers[j]] = currentLine[j];
+            }
+
+            players.push(player);
+          }
+
+          // Call the function to start a new game with the parsed player data
+          startGame(players);
+        })
+        .catch(error => {
+          console.error('Error fetching CSV data:', error);
+        });
+    }
 
     function sanitizeInput(input) {
       return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9 ]/g, '');
