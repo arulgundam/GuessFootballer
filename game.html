@@ -73,6 +73,8 @@
     <button onclick="startNewGame()">Change Difficulty</button> <!-- Moved Start Game button to the difficulty section -->
   </div>
 
+  <p>Streak: <span id="streak-count">0</span></p>
+
   <div id="guess-form">
     <label for="guess">Guess:</label>
     <input type="text" id="guess" placeholder="Enter player name">
@@ -95,7 +97,7 @@
     </div>
   </div>
 
-  <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
+  <button id="reveal-button" onclick="revealPlayer()">Give Up</button>
   <button onclick="startNewGame()">New Game</button> <!-- New Game button -->
   
   <script>
@@ -110,6 +112,7 @@
     var guessCount = 0; // Variable to track the number of guesses
     var clueCount = 0; // Variable to track the number of clues taken
     var takenClues = []; // Array to store the clues that have been taken
+    var streakCount = 0;
 
     fetch(csvURL)
       .then(response => response.text())
@@ -195,6 +198,8 @@
       var playerLastName = sanitizeInput(player.last_name.toLowerCase());
 
       if (guess.toLowerCase() === playerName || guess.toLowerCase() === playerLastName) {
+        streakCount++;
+        document.getElementById("streak-count").textContent = streakCount;
         var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
         resultDiv.innerHTML = "<p>Correct! The player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";        
         guessInput.disabled = true;
@@ -204,6 +209,8 @@
         }
         document.getElementById("clue-section").style.display = "none";
       } else {
+        streakCount = 0;
+        document.getElementById("streak-count").textContent = streakCount;
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
         displayTakenClues(); // Display all previously given clues
       }
@@ -229,7 +236,10 @@
 
         switch (clueType) {
           case "Club":
+            var clubId = player.current_club_id;
             clue = player.current_club_name;
+            var clubLogoUrl = "https://www.transfermarkt.de/images/wappen/head/" + clubId + ".png";
+            clue += "<br><img src='" + clubLogoUrl + "' alt='Club Logo' />";
             break;
           case "Position":
             clue = player.position;
@@ -260,6 +270,8 @@
     }
 
     function revealPlayer() {
+      streakCount = 0;
+      document.getElementById("streak-count").textContent = streakCount;
       var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
       resultDiv.innerHTML = "<p>The correct player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
       revealButton.style.display = "none";
@@ -279,7 +291,10 @@
 
       switch (clueType) {
         case "Club":
+          var clubId = player.current_club_id;
           clue = player.current_club_name;
+          var clubLogoUrl = "https://www.transfermarkt.de/images/wappen/head/" + clubId + ".png";
+          clue += "<br><img src='" + clubLogoUrl + "' alt='Club Logo' />";
           break;
         case "Position":
           clue = player.position;
@@ -305,7 +320,7 @@
           break;
       }
 
-      resultDiv.innerHTML += "<p>New clue: " + clueType + " - " + clue + "</p>";
+      resultDiv.innerHTML += clueType + " - " + clue + "</p>";
       clueCount++;
       clueCountElement.textContent = clueCount;
       takenClues.push(clueType);
@@ -316,13 +331,6 @@
           clueButtons[i].classList.add("disabled");
           clueButtons[i].disabled = true;
           break;
-        }
-      }
-
-      if (clueCount >= 5) {
-        for (var i = 0; i < clueButtons.length; i++) {
-          clueButtons[i].classList.add("disabled");
-          clueButtons[i].disabled = true;
         }
       }
     }
