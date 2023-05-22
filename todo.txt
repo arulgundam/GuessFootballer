@@ -1,9 +1,4 @@
 TODO:
-    - difficulty settings (by peak transfer value)
-        - normal (25 million and above)
-        - difficult (10-25)
-        - impossible (less than 10)
-        - random
     - allow for input without diacritics/accents/etc to still be valid
     - sometimes the player just doesn't work
     - about page

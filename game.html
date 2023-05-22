@@ -62,6 +62,17 @@
 <body>
   <h1>Guess the Footballer</h1>
 
+  <div id="difficulty-section">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" onchange="setDifficulty()">
+      <option value="normal">Normal</option>
+      <option value="hard">Hard</option>
+      <option value="impossible">Impossible</option>
+      <option value="random">Random</option>
+    </select>
+    <button onclick="startNewGame()">Change Difficulty</button> <!-- Moved Start Game button to the difficulty section -->
+  </div>
+
   <div id="guess-form">
     <label for="guess">Guess:</label>
     <input type="text" id="guess" placeholder="Enter player name">
@@ -86,7 +97,7 @@
 
   <button id="reveal-button" onclick="revealPlayer()">Reveal Correct Player</button>
   <button onclick="startNewGame()">New Game</button> <!-- New Game button -->
-
+  
   <script>
     var csvURL = 'tmarkt_players_05_09_2023.csv';
     var resultDiv = document.getElementById("result");
@@ -94,6 +105,7 @@
     var clueButtons = document.getElementsByClassName("clue-button");
     var guessCountElement = document.getElementById("guess-count");
     var clueCountElement = document.getElementById("clue-count");
+    var difficultySelect = document.getElementById("difficulty");
 
     var guessCount = 0; // Variable to track the number of guesses
     var clueCount = 0; // Variable to track the number of clues taken
@@ -130,8 +142,34 @@
     var guessButton = document.querySelector("button");
 
     function startGame(players) {
-      playerIndex = Math.floor(Math.random() * players.length);
-      player = players[playerIndex];
+      var difficulty = difficultySelect.value;
+
+      var filteredPlayers;
+      switch (difficulty) {
+        case "normal":
+          filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 50000000);
+          break;
+        case "hard":
+          filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 10000000 && player.highest_market_value_in_eur <= 50000000);
+          break;
+        case "impossible":
+          filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 1000000 && player.highest_market_value_in_eur <= 10000000);
+          break;
+        case "random":
+          filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 10000000);
+          break;
+        default:
+          filteredPlayers = players;
+          break;
+      }
+
+      if (filteredPlayers.length === 0) {
+        console.error('No players found for the selected difficulty');
+        return;
+      }
+
+      playerIndex = Math.floor(Math.random() * filteredPlayers.length);
+      player = filteredPlayers[playerIndex];
       guessInput.disabled = false;
       resultDiv.innerHTML = "";
       revealButton.style.display = "inline-block";
@@ -157,7 +195,8 @@
       var playerLastName = sanitizeInput(player.last_name.toLowerCase());
 
       if (guess.toLowerCase() === playerName || guess.toLowerCase() === playerLastName) {
-        resultDiv.innerHTML = "<p>Correct! The player is " + player.name + ".</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+        var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
+        resultDiv.innerHTML = "<p>Correct! The player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";        
         guessInput.disabled = true;
         revealButton.style.display = "none";
         for (var i = 0; i < clueButtons.length; i++) {
