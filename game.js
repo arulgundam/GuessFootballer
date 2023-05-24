@@ -181,7 +181,7 @@ function revealPlayer() {
     streakCount = 0;
     document.getElementById("streak-count").textContent = streakCount;
     var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
-    resultDiv.innerHTML = "<p>Correct! The player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
+    resultDiv.innerHTML = "<p>The correct player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
     revealButton.style.display = "none";
     for (var i = 0; i < clueButtons.length; i++) {
         clueButtons[i].style.display = "none";
