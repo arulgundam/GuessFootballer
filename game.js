@@ -10,6 +10,7 @@ var guessCount = 0;
 var clueCount = 0;
 var takenClues = [];
 var streakCount = 0;
+var topStreak = 0;
 
 fetch(csvURL)
     .then(response => response.text())
@@ -108,7 +109,11 @@ function checkGuess() {
 
     if (guess.toLowerCase() === playerName || guess.toLowerCase() === playerLastName) {
         streakCount++;
+        if (streakCount > topStreak) {
+            topStreak = streakCount;
+        }
         document.getElementById("streak-count").textContent = streakCount;
+        document.getElementById("top-streak").textContent = topStreak;
         var transfermarktURL = "https://www.transfermarkt.us/" + player.player_code + "/profil/spieler/" + player.player_id;
         resultDiv.innerHTML = "<p>Correct! The player is <a href='" + transfermarktURL + "' target='_blank'>" + player.name + "</a>.</p><img id='player-image' src='" + player.image_url + "' alt='Player Image'>";
         guessInput.disabled = true;
@@ -215,7 +220,7 @@ function provideClue(clueType) {
             break;
         case "Birthplace":
             clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
-            break; 
+            break;
         case "Birthplace":
             clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
             break;
