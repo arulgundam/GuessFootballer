@@ -215,6 +215,9 @@ function provideClue(clueType) {
             break;
         case "Birthplace":
             clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
+            break; 
+        case "Birthplace":
+            clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
             break;
         case "Peak Market Value":
             clue = "&euro;" + addCommasToNumber(player.highest_market_value_in_eur);
