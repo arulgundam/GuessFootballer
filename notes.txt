@@ -9,5 +9,5 @@ to run:
     shift + rightclick on open space -> run in Powershell
     type python3 -m http.server
     127.0.0.1:8000/game.html to run in chrome
-    ctrl=+c to exit running server
+    ctrl+c to exit running server
     exit to exit powershell
