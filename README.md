@@ -19,6 +19,10 @@ Guess the Footballer is a web-based game where players test their knowledge of f
 
 Contributions to Guess the Footballer are welcome! If you have any ideas, bug fixes, or improvements, please submit a pull request. For major changes, please open an issue first to discuss the proposed changes.
 
+## Next Steps
+
+After initial launch, additional features will be added. These include timed challenges, a multiplayer mode, and the incorporation of different types of clues.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
