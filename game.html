@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Guess the Footballer</title>
   <style>
@@ -71,8 +72,27 @@
       list-style: none;
       margin-left: 10px;
     }
+
+    .flash {
+      animation: flashAnimation 0.5s;
+    }
+
+    @keyframes flashAnimation {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
+
 <body>
   <h1>Guess the Footballer</h1>
 
@@ -122,4 +142,5 @@
 
   <script src="/game.js"></script>
 </body>
+
 </html>
