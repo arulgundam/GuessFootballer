@@ -3,3 +3,4 @@ https://www.kaggle.com/datasets/davidcariboo/player-scores?select=players.csv
 uses "players.csv" file
 
 need to remove all " from file
+& -> &amp
