@@ -8,8 +8,8 @@ to run:
     open GuessFootballer in explorer
     shift + rightclick on open space -> run in Powershell
     type python3 -m http.server
-    127.0.0.1:8000/game.html to run in chrome
+    127.0.0.1:8000/timeless_mode.html to run in chrome
     ctrl+c to exit running server
-    exit to exit powershell
+    exit to exit terminal
 
     my name is patty
