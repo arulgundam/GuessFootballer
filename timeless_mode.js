@@ -56,10 +56,10 @@ function startGame(players) {
     var filteredPlayers;
     switch (difficulty) {
         case "normal":
-            filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 50000000);
+            filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 35000000);
             break;
         case "hard":
-            filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 10000000 && player.highest_market_value_in_eur <= 50000000);
+            filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 10000000 && player.highest_market_value_in_eur <= 35000000);
             break;
         case "impossible":
             filteredPlayers = players.filter(player => player.highest_market_value_in_eur >= 1000000 && player.highest_market_value_in_eur <= 10000000);
@@ -96,6 +96,17 @@ function startGame(players) {
         clueButtons[i].disabled = false;
     }
 }
+
+// Get the input field
+var guessInput = document.getElementById("guess");
+
+// Execute checkGuess() function when Enter key is pressed
+guessInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkGuess();
+    }
+});
 
 function checkGuess() {
     var guess = sanitizeInput(guessInput.value.trim());
