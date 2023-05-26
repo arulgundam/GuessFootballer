@@ -11,3 +11,5 @@ to run:
     127.0.0.1:8000/game.html to run in chrome
     ctrl+c to exit running server
     exit to exit powershell
+
+    my name is patty
