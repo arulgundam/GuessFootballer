@@ -1,4 +1,4 @@
-var csvURL = 'tmarkt_players_05_09_2023.csv';
+var csvURL = 'players_jun20_2023.csv';
 var resultDiv = document.getElementById("result");
 var revealButton = document.getElementById("reveal-button");
 var clueButtons = document.getElementsByClassName("clue-button");
