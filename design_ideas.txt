@@ -15,3 +15,8 @@ lots of empty space on page
 make tabs in right hand top cooler looking
 
 emojis to indicate streaks?
+
+make buttons similar
+
+indicate through text this is timeless_mode
+    website heading should be GuessFootball?
