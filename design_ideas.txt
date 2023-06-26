@@ -1,0 +1,17 @@
+DESIGN IDEAS
+
+clues should be in the shape of rounded squares
+- once clue is displayed, the clue is displayed in the square itself
+    - club image
+    - image for position (goalkeeper: gloves, defender: shield, midfielder: cleats, striker: goal)
+    - birthday displayed in cool text font
+    - country displayed w country flag (lemme fix the birthplace variable first)
+    - peark market value in cool text font
+
+need to make guess-form bigger and also look nicer
+
+lots of empty space on page
+
+make tabs in right hand top cooler looking
+
+emojis to indicate streaks?
