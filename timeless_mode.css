@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @font-face {
     font-family: 'eurostile';
     src: url(Eurostile_LT_Std/EurostileLTStd-Demi.otf) format("opentype");
