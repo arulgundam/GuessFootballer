@@ -171,8 +171,8 @@ function displayTakenClues() {
             case "Birthday":
                 clue = player.date_of_birth;
                 break;
-            case "Country":
-                clue = player.country_of_citizenship;
+            case "Birthplace":
+                clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
                 break;
             case "Peak Market Value":
                 clue = addCommasToNumber(player.highest_market_value_in_eur);
@@ -229,8 +229,11 @@ function provideClue(clueType) {
             var year = birthdayParts[0];
             clue = month + " " + day + ", " + year;
             break;
-        case "Country":
-            clue = player.country_of_citizenship;
+        case "Birthplace":
+            clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
+            break;
+        case "Birthplace":
+            clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
             break;
         case "Peak Market Value":
             clue = "&euro;" + addCommasToNumber(player.highest_market_value_in_eur);
