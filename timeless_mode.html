@@ -21,11 +21,19 @@
     h1 {
       text-align: center;
       margin-top: 0;
+      font-size: 40px;
     }
 
     #guess-form {
       text-align: center;
       margin-top: 20px;
+    }
+
+    #guess-form label,
+    #result,
+    p,
+    #clue-label {
+      font-size: 20px;
     }
 
     #result {
@@ -39,10 +47,33 @@
       display: block;
     }
 
+    #reveal-button,
+    button {
+      display: inline-block;
+      margin: 20px 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
     #reveal-button {
-      display: block;
-      margin: 20px auto;
-      text-align: center;
+      background-color: red;
+    }
+
+    button#submit-button {
+      background-color: gold;
+    }
+
+    button#new-game-button {
+      background-color: #4CAF50;
     }
 
     #clue-section {
@@ -74,12 +105,6 @@
     .clue-button.disabled {
       pointer-events: none;
       opacity: 0.5;
-    }
-
-    #clue-label {
-      display: block;
-      text-align: center;
-      margin-bottom: 10px;
     }
 
     #difficulty-section {
@@ -162,7 +187,7 @@
   <div id="guess-form">
     <label for="guess">Guess:</label>
     <input type="text" id="guess" placeholder="Enter player name">
-    <button onclick="checkGuess()">Submit</button>
+    <button id="submit-button" onclick="checkGuess()">Submit</button>
   </div>
 
   <div id="result"></div>
@@ -182,7 +207,7 @@
   </div>
 
   <button id="reveal-button" onclick="revealPlayer()">Give Up</button>
-  <button onclick="startNewGame()">New Game</button>
+  <button id="new-game-button" onclick="startNewGame()">New Game</button>
 
   <ul class="top-right">
     <li><a href="timeless_mode.html">Game</a></li>
