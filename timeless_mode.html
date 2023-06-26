@@ -173,6 +173,12 @@
       font-weight: bold;
       color: #333333;
     }
+
+    #incorrect-guesses {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ff0000;
+    }
   </style>
 </head>
 
@@ -191,6 +197,8 @@
 
   <p>Streak: <span id="streak-count">0</span></p>
   <p>Top Streak: <span id="top-streak">0</span></p>
+
+  <div id="incorrect-guesses"></div>
 
   <div id="guess-form">
     <label for="guess">Guess:</label>
@@ -218,9 +226,9 @@
   <button id="new-game-button" onclick="startNewGame()">New Game</button>
 
   <ul class="top-right">
-    <li><a href="timeless_mode.html">Game</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="timeless_mode.html"><span class="soccer-icon"></span> Game</a></li>
+    <li><a href="about.html"><span class="soccer-icon"></span> About</a></li>
+    <li><a href="contact.html"><span class="soccer-icon"></span> Contact</a></li>
   </ul>
 
   <script src="/timeless_mode.js"></script>

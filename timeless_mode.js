@@ -1,5 +1,6 @@
 var csvURL = 'players_jun20_2023.csv';
 var resultDiv = document.getElementById("result");
+var incorrectGuessesDiv = document.getElementById("incorrect-guesses");
 var revealButton = document.getElementById("reveal-button");
 var clueButtons = document.getElementsByClassName("clue-button");
 var guessCountElement = document.getElementById("guess-count");
@@ -11,6 +12,7 @@ var clueCount = 0;
 var takenClues = [];
 var streakCount = 0;
 var topStreak = 0;
+var incorrectGuesses = [];
 
 fetch(csvURL)
     .then(response => response.text())
@@ -45,6 +47,7 @@ guessButton.addEventListener("click", checkGuess);
 
 function startGame(players) {
     resultDiv.textContent = "";
+    incorrectGuessesDiv.textContent = "";
 
     var difficulty = difficultySelect.value;
 
@@ -137,7 +140,8 @@ function checkGuess() {
         streakCount = 0;
         document.getElementById("streak-count").textContent = streakCount;
         resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
-        displayTakenClues();
+        incorrectGuesses.push(guess);
+        displayIncorrectGuesses();
     }
 
     guessInput.value = "";
@@ -145,49 +149,25 @@ function checkGuess() {
     guessCountElement.textContent = guessCount;
 }
 
-function displayTakenClues() {
-    if (takenClues.length === 0) {
-        resultDiv.innerHTML = "<p>Incorrect. Keep guessing!</p>";
+function displayIncorrectGuesses() {
+    var incorrectGuessesElement = document.getElementById("incorrect-guesses");
+
+    if (incorrectGuesses.length === 0) {
+        incorrectGuessesElement.innerHTML = "";
         return;
     }
 
-    var cluesHTML = "<p>Incorrect. Keep guessing!</p><p>Your clue(s):<br>";
-    var uniqueClueTypes = [...new Set(takenClues)];
+    var guessesHTML = "<p>Incorrect Guesses:</p><ul>";
 
-    for (var i = 0; i < uniqueClueTypes.length; i++) {
-        var clueType = uniqueClueTypes[i];
-        var clue;
-
-        switch (clueType) {
-            case "Club":
-                var clubId = player.current_club_id;
-                clue = player.current_club_name;
-                var clubLogoUrl = "https://www.transfermarkt.de/images/wappen/head/" + clubId + ".png";
-                clue += "<br><img src='" + clubLogoUrl + "' alt='Club Logo' />";
-                break;
-            case "Position":
-                clue = player.position;
-                break;
-            case "Birthday":
-                clue = player.date_of_birth;
-                break;
-            case "Birthplace":
-                clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
-                break;
-            case "Peak Market Value":
-                clue = addCommasToNumber(player.highest_market_value_in_eur);
-                break;
-            default:
-                clue = "No clue available";
-                break;
-        }
-
-        cluesHTML += clueType + " - " + clue + "<br>";
+    for (var i = 0; i < incorrectGuesses.length; i++) {
+        var guess = incorrectGuesses[i];
+        guessesHTML += "<li>" + guess + "</li>";
     }
 
-    cluesHTML += "</p>";
-    resultDiv.innerHTML = cluesHTML;
+    guessesHTML += "</ul>";
+    incorrectGuessesElement.innerHTML = guessesHTML;
 }
+
 
 function addCommasToNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -228,9 +208,6 @@ function provideClue(clueType) {
             var day = parseInt(birthdayParts[2], 10);
             var year = birthdayParts[0];
             clue = month + " " + day + ", " + year;
-            break;
-        case "Birthplace":
-            clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
             break;
         case "Birthplace":
             clue = player.city_of_birth.trim() + ", " + player.country_of_birth;
