@@ -4,18 +4,25 @@
 <head>
   <title>Guess the Footballer</title>
   <style>
-    @font-face 
-        font-family:eurostile;
-        src: url(Eurostile_LT_Std/EurostileLTStd-Demi.otf) format ("opentype");
+    @font-face {
+      font-family: 'eurostile';
+      src: url(Eurostile_LT_Std/EurostileLTStd-Demi.otf) format("opentype");
+    }
+
     body {
-      font-family: 'Helvetica',  'Arial Narrow Bold', sans-serif;
+      font-family: 'eurostile', 'Helvetica', 'Arial Narrow Bold', sans-serif;
       position: relative;
+      background-color: rgb(134, 147, 236);
+      margin: 0;
+      padding: 20px;
+      color: white;
     }
 
     h1 {
-      text-align: left;
-      }
-  
+      text-align: center;
+      margin-top: 0;
+    }
+
     #guess-form {
       text-align: center;
       margin-top: 20px;
@@ -50,6 +57,18 @@
 
     .clue-button {
       margin: 5px;
+      background-color: #363636;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .clue-button:hover {
+      background-color: #212121;
     }
 
     .clue-button.disabled {
@@ -61,6 +80,34 @@
       display: block;
       text-align: center;
       margin-bottom: 10px;
+    }
+
+    #difficulty-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #difficulty {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    #guess-count,
+    #clue-count {
+      font-weight: bold;
+    }
+
+    #streak-count,
+    #top-streak {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    #streak-count,
+    #top-streak,
+    #guess-count,
+    #clue-count {
+      color: gold;
     }
 
     .top-right {
@@ -93,13 +140,6 @@
         opacity: 1;
       }
     }
-  </style>
-</head>
-<head>
-  <style>
-     body {
-        background-color: rgb(134, 147, 236);
-     }
   </style>
 </head>
 
@@ -136,7 +176,7 @@
       <button class="clue-button" onclick="provideClue('Club')">Club</button>
       <button class="clue-button" onclick="provideClue('Position')">Position</button>
       <button class="clue-button" onclick="provideClue('Birthday')">Birthday</button>
-      <button class="clue-button" onclick="provideClue('Birthplace')">Birthplace</button>
+      <button class="clue-button" onclick="provideClue('Country')">Country</button>
       <button class="clue-button" onclick="provideClue('Peak Market Value')">Peak Market Value</button>
     </div>
   </div>
