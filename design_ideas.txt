@@ -22,3 +22,5 @@ indicate through text this is timeless_mode
     website heading should be GuessFootball?
 
 color scheme
+
+soccer iconography
