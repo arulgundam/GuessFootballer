@@ -429,17 +429,17 @@ const TimelessMode = () => {
 
       <ul class="top-right">
         <li>
-          <a href="timeless_mode.html">
+          <a href="/">
             <span class="soccer-icon"></span> Game
           </a>
         </li>
         <li>
-          <a href="about.html">
+          <a href="/about">
             <span class="soccer-icon"></span> About
           </a>
         </li>
         <li>
-          <a href="contact.html">
+          <a href="/contact">
             <span class="soccer-icon"></span> Contact
           </a>
         </li>
