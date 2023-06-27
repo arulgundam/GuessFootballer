@@ -69,18 +69,24 @@ p,
   transition: background-color 0.3s ease;
 }
 
-#submit-button:hover,
-#reveal-button:hover,
-#new-game-button:hover {
-  background-color: #ffc107;
+#submit-button:hover {
+  background-color: #ffc150;
 }
 
 #submit-button {
   background-color: #ffc107;
 }
 
+#reveal-button:hover {
+  background-color: #f44001
+}
+
 #reveal-button {
   background-color: #f44336;
+}
+
+#new-game-button:hover {
+  background-color: #4caf00;
 }
 
 #new-game-button {
@@ -90,6 +96,10 @@ p,
 #clue-section {
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #clue-buttons {
@@ -115,7 +125,7 @@ p,
 
 .clue-button.disabled {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0;
 }
 
 .top-right {
@@ -153,6 +163,7 @@ p,
   display: block;
   max-width: 100%;
   margin: 0 auto;
+  text-align: center;
 }
 
 #result {

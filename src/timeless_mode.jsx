@@ -345,7 +345,7 @@ const TimelessMode = () => {
       </div>
 
       <div id="guess-form">
-        <label for="guess">Guess:</label>
+        <label for="guess">Guess: </label>
         <input
           type="text"
           id="guess"
