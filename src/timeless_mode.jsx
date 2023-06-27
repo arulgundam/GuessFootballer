@@ -309,14 +309,14 @@ const TimelessMode = () => {
 
   const displayIncorrectGuesses = () => (
     <>
-      <p>Incorrect Guesses:</p>
+      <p style={{ display: 'inline' }}>Incorrect Guesses: </p>
       <ul>
         {incorrectGuesses.map((x, i) => (
-          <li key={i}>{x}</li>
+          <li key={i}>{x}{i !== incorrectGuesses.length - 1 && ','}</li>
         ))}
       </ul>
     </>
-  );
+  );  
 
   return (
     <>

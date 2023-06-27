@@ -96,10 +96,6 @@ p,
 #clue-section {
   text-align: center;
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 #clue-buttons {
@@ -174,8 +170,26 @@ p,
   color: #333333;
 }
 
+#result img {
+  display: block;
+  margin: 0 auto;
+}
+
 #incorrect-guesses {
   margin-top: 20px;
   font-size: 18px;
   color: #ff0000;
+  display: inline-block;
+}
+
+#incorrect-guesses ul {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#incorrect-guesses li {
+  display: inline;
+  margin-right: 5px;
 }

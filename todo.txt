@@ -17,7 +17,4 @@ css stuff:
     -tesing round 2
     -testing round 3
 
-- When revealing the player all the clues should disappear
-- Center club picture
-- Incorrect guesses need to be displayed laterally
 - Clue Buttons when disabled need to be opaque (not working)
