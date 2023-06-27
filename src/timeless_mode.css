@@ -121,7 +121,7 @@ p,
 
 .clue-button.disabled {
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .top-right {

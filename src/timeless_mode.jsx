@@ -324,7 +324,7 @@ const TimelessMode = () => {
       <h1 className="font-bold">Guess the Footballer</h1>
 
       <div id="difficulty-section">
-        <label for="difficulty">Difficulty:</label>
+        <label for="difficulty">Difficulty: </label>
         <select id="difficulty" ref={difficultySelect} onChange={startNewGame}>
           <option value="normal">Normal</option>
           <option value="hard">Hard</option>
