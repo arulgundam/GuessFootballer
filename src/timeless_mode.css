@@ -44,20 +44,31 @@ p {
 #result,
 p,
 #clue-label {
-  font-size: 14px;
+  font-size: 20px;
   color: #333333;
 }
 
 #guess {
-  padding: 8px;
-  font-size: 16px;
+  padding: 12px;
+  font-size: 18px;
   border-radius: 4px;
   border: 1px solid #cccccc;
   background-color: #ffffff;
   color: #333333;
 }
 
-#submit-button,
+#submit-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 #reveal-button,
 #new-game-button {
   display: inline-block;
