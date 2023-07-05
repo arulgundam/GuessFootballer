@@ -1,11 +1,17 @@
-Wanna make the clue buttons big squares and have the clues be displayed within the squares themselves
-- with pictures
-    - club logo
-    - graphic for position
-    - birthday cake -> change to age
-    - birthplace -> change to country, display country
-    - peak market value -> make cool font   
-        - or get rid of idk
+CLUE DESIGN IDEAS
+    Wanna make the clue buttons big squares and have the clues be displayed within the squares themselves
+    - with pictures
+        - club logo
+        - graphic for position
+        - birthday cake -> change to age
+        - birthplace -> change to country, display country
+        - peak market value -> make cool font   
+            - or get rid of idk
+    OR
+    make them in the style of cards
+    or make one card for the player and reveal the information
+
+
 
 And then I want it to be fixed so there’s like no scrolling
 - https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
@@ -15,3 +21,6 @@ Tailwind CSS Intellisense plug in (in VSCODE)
 inspo:
 - https://headlessui.com/
 - https://tailwindui.com/
+
+specific functionality/issues
+- revealed clues should not display (and the entire clue section) when the guess is correct
