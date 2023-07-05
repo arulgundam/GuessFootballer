@@ -11,11 +11,6 @@ CLUE DESIGN IDEAS
     make them in the style of cards
     or make one card for the player and reveal the information
 
-
-
-And then I want it to be fixed so there’s like no scrolling
-- https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
-
 Tailwind CSS Intellisense plug in (in VSCODE)
 
 inspo:
@@ -24,3 +19,7 @@ inspo:
 
 specific functionality/issues
 - revealed clues should not display (and the entire clue section) when the guess is correct
+- needs to look same in resized windows
+- And then I want it to be fixed so there’s like no scrolling
+-   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
+- nav bar line w difficultySelect
