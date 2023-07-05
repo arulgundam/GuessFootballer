@@ -194,21 +194,21 @@ p,
   opacity: 0.5;
 }
 
-.top-right {
+.navigation {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-.top-right li {
+.navigation li {
   list-style: none;
   margin-left: 20px;
 }
 
-.top-right a {
+.navigation a {
   text-decoration: none;
   color: #000000;
   font-size: 16px;
@@ -217,7 +217,7 @@ p,
   transition: background-color 0.3s ease;
 }
 
-.top-right a:hover {
+.navigation a:hover {
   background-color: #ffc107;
 }
 

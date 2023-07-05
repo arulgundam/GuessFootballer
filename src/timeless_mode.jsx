@@ -439,7 +439,7 @@ const TimelessMode = () => {
       </div>
 
 
-      <ul class="top-right">
+      <ul class="navigation">
         <li>
           <a href="/">
             <span class="soccer-icon"></span> Game
