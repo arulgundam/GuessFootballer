@@ -5,13 +5,13 @@ the 'name' variable features the name of the player.
 the 'url' variable has a link to a picture of the player.
 
 to run:
-    open GuessFootballer in explorer
-    shift + rightclick on open space -> run in Powershell
-    type python3 -m http.server
-    127.0.0.1:8000/timeless_mode.html to run in chrome
-    ctrl+c to exit running server
-    exit to exit terminal
+    open Terminal
+    cd Desktop (if folder is in Desktop)
+    cd GuessFootballer
+    npm run dev
+    follow link
 
-    my name is patty
-
-i love you, goodnight
+to exit terminal:
+    ctrl + C
+    exit
+    x out
