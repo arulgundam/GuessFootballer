@@ -15,8 +15,9 @@ h1 {
 }
 
 #difficulty-section {
-  text-align: center;
-  margin-bottom: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
 #difficulty {
@@ -27,6 +28,7 @@ h1 {
   background-color: #ffffff;
   color: #333333;
 }
+
 
 p {
   font-size: 18px;
@@ -42,7 +44,7 @@ p {
 #result,
 p,
 #clue-label {
-  font-size: 18px;
+  font-size: 14px;
   color: #333333;
 }
 
