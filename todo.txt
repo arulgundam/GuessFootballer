@@ -1,20 +1,17 @@
-TODO:
-    - allow for input without diacritics/accents/etc to still be valid
-    - feedback form on contact page
-    - images for all Clues
-        - club is covered
-        - position? 
-        - birthday?
-        - birthplace: nation flag
-        - peak market value: money symbol?
-    - write about section
-    - write contact section
+Wanna make the clue buttons big squares and have the clues be displayed within the squares themselves
+- with pictures
+    - club logo
+    - graphic for position
+    - birthday cake -> change to age
+    - birthplace -> change to country, display country
+    - peak market value -> make cool font   
+        - or get rid of idk
 
-css stuff:
-    - logo (black silhouette with question mark?)
-    - uh idk go crazy babe
-    -testing changes 
-    -tesing round 2
-    -testing round 3
+And then I want it to be fixed so there’s like no scrolling
+- https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 
-- Clue Buttons when disabled need to be opaque (not working)
+Tailwind CSS Intellisense plug in (in VSCODE)
+
+inspo:
+- https://headlessui.com/
+- https://tailwindui.com/
