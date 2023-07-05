@@ -131,13 +131,28 @@ p,
   top: 10px;
   right: 10px;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .top-right li {
   list-style: none;
-  margin-left: 10px;
+  margin-left: 20px;
 }
+
+.top-right a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.top-right a:hover {
+  background-color: #ffc107;
+}
+
 
 .flash {
   animation: flashAnimation 0.25s;
