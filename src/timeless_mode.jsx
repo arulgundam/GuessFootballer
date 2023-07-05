@@ -320,8 +320,8 @@ const TimelessMode = () => {
 
   return (
     <>
-      <title>Guess The Footballer</title>
-      <h1 className="font-bold">Guess the Footballer</h1>
+      <title>GuessFootball</title>
+      <h1 className="font-bold">GuessFootball: Timeless Mode</h1>
 
       <div id="difficulty-section">
         <label for="difficulty">Difficulty: </label>
