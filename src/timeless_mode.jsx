@@ -316,7 +316,7 @@ const TimelessMode = () => {
         ))}
       </ul>
     </>
-  );  
+  );
 
   return (
     <>
@@ -333,12 +333,28 @@ const TimelessMode = () => {
         </select>
       </div>
 
-      <p>
-        Streak: <span id="streak-count">{streakCount}</span>
-      </p>
-      <p>
-        Top Streak: <span id="top-streak">{topStreak}</span>
-      </p>
+      <div class="stats-container">
+        <div class="stats-item">
+          <p>
+            Streak: <span id="streak-count">{streakCount}</span>
+          </p>
+        </div>
+        <div class="stats-item">
+          <p>
+            Top Streak: <span id="top-streak">{topStreak}</span>
+          </p>
+        </div>
+        <div class="stats-item">
+          <p>
+            Guesses Taken: <span id="guess-count">{guessCount}</span>
+          </p>
+        </div>
+        <div class="stats-item">
+          <p>
+            Clues Used: <span id="clue-count">{clueState.clueCount}</span>
+          </p>
+        </div>
+      </div>
 
       <div id="incorrect-guesses">
         {incorrectGuesses.length !== 0 ? displayIncorrectGuesses() : <></>}
@@ -369,13 +385,6 @@ const TimelessMode = () => {
           <div key={i}>{x}</div>
         ))}
       </div>
-
-      <p>
-        Guesses Taken: <span id="guess-count">{guessCount}</span>
-      </p>
-      <p>
-        Clues Used: <span id="clue-count">{clueState.clueCount}</span>
-      </p>
 
       <div id="clue-section">
         <label id="clue-label" for="clue-buttons">
@@ -420,12 +429,15 @@ const TimelessMode = () => {
         </div>
       </div>
 
-      <button id="reveal-button" onClick={revealPlayer}>
-        Give Up
-      </button>
-      <button id="new-game-button" onClick={startNewGame}>
-        New Game
-      </button>
+      <div class="button-section">
+        <button id="reveal-button" onClick={revealPlayer}>
+          Give Up
+        </button>
+        <button id="new-game-button" onClick={startNewGame}>
+          New Game
+        </button>
+      </div>
+
 
       <ul class="top-right">
         <li>

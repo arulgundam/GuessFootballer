@@ -69,6 +69,45 @@ p,
   transition: background-color 0.3s ease;
 }
 
+.stats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.stats-item {
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #333333;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px; /* Add margin between rectangles */
+  display: flex;
+  align-items: center;
+}
+
+.stats-item:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+
+.stats-item:nth-child(even) {
+  background-color: #ffe8b3; /* Lighter color for even items */
+}
+
+.stats-item:nth-child(odd) {
+  background-color: #fddbdb; /* Lighter color for odd items */
+}
+
+.stats-item p {
+  margin: 0; /* Reset margin for the paragraph */
+}
+
+.stats-item span {
+  font-weight: bold; /* Make the value bold */
+  margin-left: 5px; /* Add space between label and value */
+}
+
 #reveal-button,
 #new-game-button {
   display: inline-block;
@@ -90,20 +129,38 @@ p,
   background-color: #ffc107;
 }
 
-#reveal-button:hover {
-  background-color: #f44001
+.button-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
-#reveal-button {
+.button-section button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-section button#reveal-button {
   background-color: #f44336;
 }
 
-#new-game-button:hover {
-  background-color: #4caf00;
+.button-section button#reveal-button:hover {
+  background-color: #f44001
 }
 
-#new-game-button {
+.button-section button#new-game-button {
   background-color: #4caf50;
+}
+
+.button-section button#new-game-button:hover {
+  background-color: #4caf00;
 }
 
 #clue-section {
