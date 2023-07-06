@@ -14,3 +14,5 @@ specific functionality/issues
 - curve player image box
 - update transfer data
 - when player guess is incorrect, need to empty guess-form
+- color banner
+- logo
