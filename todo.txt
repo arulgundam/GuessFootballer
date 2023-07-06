@@ -23,3 +23,4 @@ specific functionality/issues
 - And then I want it to be fixed so there’s like no scrolling
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 - nav bar line w difficultySelect
+- give up button disabled when player guess is correct
