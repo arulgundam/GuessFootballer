@@ -330,7 +330,6 @@ const TimelessMode = () => {
             <PlayerText blurred={state !== "correct" && state !== "reveal"}>{player?.name}</PlayerText>
             <PlayerImageWrapper blurred={state !== "correct" && state !== "reveal"}>
               <PlayerImage id="player-image" src={player?.image_url} alt="Player Image" width={139} height={181} />
-              <img className="absolute z-0 w-[69px] h-[90px]" src={`https://www.transfermarkt.de/images/wappen/head/${player?.current_club_id}.png`} />
             </PlayerImageWrapper>
           </div>
           <div className="flex flex-col pl-4 space-y-4 items-start justify-start">
