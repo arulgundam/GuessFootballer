@@ -1,16 +1,3 @@
-CLUE DESIGN IDEAS
-    Wanna make the clue buttons big squares and have the clues be displayed within the squares themselves
-    - with pictures
-        - club logo
-        - graphic for position
-        - birthday cake -> change to age
-        - birthplace -> change to country, display country
-        - peak market value -> make cool font   
-            - or get rid of idk
-    OR
-    make them in the style of cards
-    or make one card for the player and reveal the information
-
 Tailwind CSS Intellisense plug in (in VSCODE)
 
 inspo:
@@ -18,15 +5,9 @@ inspo:
 - https://tailwindui.com/
 
 specific functionality/issues
-- revealed clues should not display (and the entire clue section) when the guess is correct
 - needs to look same in resized windows
-- And then I want it to be fixed so there’s like no scrolling
+- FIT ON ONE PAGE (NO SCRLLING)
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 - nav bar line w difficultySelect
-- give up button disabled when player guess is correct
-- 1. Need to update clues used so that it doesn’t show “5” when clues are revealed, 
-- 2. Give up button available when guessing, new game button available when player has been revealed, 
-- 3. Fix top part (difficulty/title/navigation)
-- guess form above player card
-- new game/give up beneath
-- club logo should be unblurred when club is revealed, should also be designed differently imo
+- properly format club img
+- change color of card (yellow, red, green) based on state
