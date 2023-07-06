@@ -313,12 +313,8 @@ const TimelessMode = () => {
             Guesses Taken: <span id="guess-count">{guessCount}</span>
           </p>
         </div>
-        <div class="stats-item">
-          <p>
-            Clues Used: <span id="clue-count">{(() => Object.values(clues).filter((x) => x.shown === true).length)()}</span>
-          </p>
-        </div>
       </div>
+
 
       <div id="incorrect-guesses">
         {incorrectGuesses.length !== 0 ? displayIncorrectGuesses() : <></>}
@@ -333,27 +329,27 @@ const TimelessMode = () => {
           <div className="flex flex-col text-center">
             <PlayerText blurred={state !== "correct" && state !== "reveal"}>{player?.name}</PlayerText>
             <PlayerImageWrapper blurred={state !== "correct" && state !== "reveal"}>
-              <PlayerImage id="player-image" src={player?.image_url} alt="Player Image" width={139} height={181}/>
+              <PlayerImage id="player-image" src={player?.image_url} alt="Player Image" width={139} height={181} />
               <img className="absolute z-0 w-[69px] h-[90px]" src={`https://www.transfermarkt.de/images/wappen/head/${player?.current_club_id}.png`} />
-            </PlayerImageWrapper> 
+            </PlayerImageWrapper>
           </div>
           <div className="flex flex-col pl-4 space-y-4 items-start justify-start">
-            { Object.entries(clues ?? {}).map(([k, v], i) => {
-                return (
-                  <ClueCard onClick={(e) => {
-                    e.preventDefault();
-                    if (clues[k].shown !== false) return;
-                    let newClues = { ...clues };
-                    newClues[k].shown = true;
-                    setClues(newClues);
-                  }}
+            {Object.entries(clues ?? {}).map(([k, v], i) => {
+              return (
+                <ClueCard onClick={(e) => {
+                  e.preventDefault();
+                  if (clues[k].shown !== false) return;
+                  let newClues = { ...clues };
+                  newClues[k].shown = true;
+                  setClues(newClues);
+                }}
                   clicked={clues[k].shown === true}
-                  >
-                    <p className="text-base font-medium text-gray-900">{clues[k].displayName}</p>
-                    <ClueText clicked={clues[k].shown}>{clues[k].clue}</ClueText>
-                  </ClueCard>
-                )
-              })
+                >
+                  <p className="text-base font-medium text-gray-900">{clues[k].displayName}</p>
+                  <ClueText clicked={clues[k].shown}>{clues[k].clue}</ClueText>
+                </ClueCard>
+              )
+            })
             }
           </div>
         </div>
