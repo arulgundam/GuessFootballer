@@ -11,3 +11,6 @@ specific functionality/issues
 - nav bar line w difficultySelect
 - properly format club img
 - change color of card (yellow, red, green) based on state
+- curve player image box
+- update transfer data
+- when player guess is incorrect, need to empty guess-form
