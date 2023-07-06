@@ -258,6 +258,7 @@ const TimelessMode = () => {
 
       setState("correct");
       showAllClues();
+      guessInput.current.value = ""; // Clear the guess input
     } else {
       setStreakCount(0);
       setState("incorrect");
