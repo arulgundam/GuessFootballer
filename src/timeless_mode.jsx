@@ -143,7 +143,7 @@ const TimelessMode = () => {
         );
 
       case "incorrect":
-        return <p>Incorrect. Keep guessing!</p>;
+        return <></>;
 
       case "reveal":
         return (
@@ -373,14 +373,19 @@ const TimelessMode = () => {
         </button>
       </div>
 
-      <div class="button-section">
-        <button id="reveal-button" onClick={revealPlayer}>
-          Give Up
-        </button>
-        <button id="new-game-button" onClick={startNewGame}>
-          New Game
-        </button>
+      <div className="button-section">
+        {state === "initial" || state === "incorrect" ? (
+          <button id="reveal-button" onClick={revealPlayer}>
+            Give Up
+          </button>
+        ) : (
+          <button id="new-game-button" onClick={startNewGame}>
+            New Game
+          </button>
+        )}
       </div>
+
+
 
 
       <ul class="navigation">
