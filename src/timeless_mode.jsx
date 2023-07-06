@@ -1,7 +1,50 @@
 import "./timeless_mode.css";
 import { useEffect, useState, useRef, useReducer } from "preact/hooks";
+import tw from 'tailwind-styled-components';
+import Confetti from "react-confetti";
 
 const CSV_URL = "players_jun20_2023.csv";
+
+const PlayerImage = tw.img`
+  ${(p) => (p.blurred ? "" : "")}
+  w-[278px]
+  h-[362px]
+  border
+  border-gray-700
+  transition-all
+`;
+
+const PlayerText = tw.p`
+  text-2xl
+  font-bold
+  pb-4
+  ${(p) => (p.blurred ? "blur-md" : "")}
+  select-none
+`;
+
+const PlayerImageWrapper = tw.div`
+  flex
+  relative
+  ${(p) => (p.blurred ? "blur-xl" : "")}
+`;
+
+const ClueCard = tw.div`
+  flex
+  flex-col
+  border
+  rounded-lg
+  p-4
+  w-full
+  ${(p) => (p.clicked ? "" : "hover:bg-gray-200")}
+  cursor-pointer
+`;
+
+const ClueText = tw.p`
+  text-sm
+  text-gray-400
+  ${(p) => (p.clicked ? "" : "blur-md")}
+  transition-all
+`
 
 const getMonthName = (monthNumber) => {
   var months = [
@@ -39,125 +82,53 @@ const TimelessMode = () => {
   const difficultySelect = useRef(null);
   const guessInput = useRef(null);
   const [state, setState] = useState("initial");
-  const [clueState, provideClue] = useReducer(
-    (state, action) => {
-      if (
-        state.clueTypes.includes(action.type) ||
-        state === "correct" ||
-        state === "reveal"
-      ) {
-        return state;
-      }
+  const [clues, setClues] = useState({});
 
-      state.clueTypes.push(action.type);
-      state.clueCount += 1;
+  const generateClues = () => {
+    if (player === null) return {};
 
-      switch (action.type) {
-        case "clear": {
-          state.clueCount = 0;
-          state.clueTypes = [];
-          state.clues = [];
-
-          return {
-            ...state,
-          };
-        }
-
-        case "club": {
-          const clue = (
-            <>
-              <span>Club - {player.current_club_name}</span>
-              <br />
-              <img
-                src={`https://www.transfermarkt.de/images/wappen/head/${player.current_club_id}.png`}
-              />
-            </>
-          );
-
-          state.clues.push(clue);
-
-          return {
-            ...state,
-          };
-        }
-
-        case "position": {
-          const clue = (
-            <>
-              <span>Position - {player.position}</span>
-            </>
-          );
-
-          state.clues.push(clue);
-
-          return {
-            ...state,
-          };
-        }
-
-        case "birthday": {
+    const clues = {
+      club: {
+        shown: false,
+        displayName: "Club",
+        clue: player?.current_club_name,
+      },
+      position: {
+        shown: false,
+        displayName: "Position",
+        clue: player?.position,
+      },
+      birthday: {
+        shown: false,
+        displayName: "Birthday",
+        clue: (() => {
           let birthdayParts = player.date_of_birth.split("-");
           let month = getMonthName(birthdayParts[1]);
           let day = parseInt(birthdayParts[2], 10);
           let year = birthdayParts[0];
-          const clue = (
-            <>
-              <span>
-                Birthday - {month} {day}, {year}
-              </span>
-            </>
-          );
-
-          state.clues.push(clue);
-
-          return {
-            ...state,
-          };
-        }
-
-        case "birthplace": {
-          const clue = (
-            <>
-              <span>
-                Birthplace - {player.city_of_birth.trim()},{" "}
-                {player.country_of_birth}
-              </span>
-            </>
-          );
-
-          state.clues.push(clue);
-
-          return {
-            ...state,
-          };
-        }
-
-        case "peak_market_value": {
+          return `${month} ${day}, ${year}`;
+        })(),
+      },
+      birthplace: {
+        shown: false,
+        displayName: "Birthplace",
+        clue: `${player.city_of_birth.trim()}, ${player.country_of_birth}`
+      },
+      peak_market_value: {
+        shown: false,
+        displayName: "Peak Market Value",
+        clue: (() => {
           let value = addCommasToNumber(player.highest_market_value_in_eur);
           if (value.endsWith(".0")) {
             value = value.slice(0, -2);
           }
+          return `€${value}`;
+        })(),
+      },
+    };
 
-          const clue = (
-            <>
-              <span>Peak Market Value - &euro;{value}</span>
-            </>
-          );
-
-          state.clues.push(clue);
-
-          return {
-            ...state,
-          };
-        }
-
-        default: {
-          return state;
-        }
-      }
-    },
-    { clues: [], clueTypes: [], clueCount: 0 }
-  );
+    return clues;
+  }
 
   const showState = () => {
     switch (state) {
@@ -167,14 +138,8 @@ const TimelessMode = () => {
       case "correct":
         return (
           <div>
-            <p>
-              Correct! The player is{" "}
-              <a
-                href={`https://www.transfermarkt.us/${player.player_code}/profil/spieler/${player.player_id}`}
-              />{" "}
-              {player.name}.
-            </p>
-            <img id="player-image" src={player.image_url} alt="Player Image" />
+            <p>Correct!</p>
+            <Confetti recycle={false} />
           </div>
         );
 
@@ -183,16 +148,7 @@ const TimelessMode = () => {
 
       case "reveal":
         return (
-          <div>
-            <p>
-              The correct player is{" "}
-              <a
-                href={`https://www.transfermarkt.us/${player.player_code}/profil/spieler/${player.player_id}`}
-              />{" "}
-              {player.name}.
-            </p>
-            <img id="player-image" src={player.image_url} alt="Player Image" />
-          </div>
+          <></>
         );
     }
   };
@@ -263,7 +219,6 @@ const TimelessMode = () => {
     console.log(filteredPlayers[playerIndex]);
     setIncorrectGuesses([]);
     setState("initial");
-    provideClue({ type: "clear" });
   };
 
   const startNewGame = async () => {
@@ -274,6 +229,14 @@ const TimelessMode = () => {
   useEffect(async () => {
     await startNewGame();
   }, []);
+
+  useEffect(() => {
+    setClues(generateClues());
+  }, [player]);
+
+  const showAllClues = () => {
+    setClues(Object.entries(clues).map(([_, v]) => (v.shown = true, v)));
+  };
 
   const checkGuess = () => {
     const guess = sanitizeInput(guessInput.current.value.trim());
@@ -295,7 +258,7 @@ const TimelessMode = () => {
       }
 
       setState("correct");
-      provideClue({ type: "clear" });
+      showAllClues();
     } else {
       setStreakCount(0);
       setState("incorrect");
@@ -305,6 +268,7 @@ const TimelessMode = () => {
 
   const revealPlayer = () => {
     setState("reveal");
+    showAllClues();
   };
 
   const displayIncorrectGuesses = () => (
@@ -351,13 +315,48 @@ const TimelessMode = () => {
         </div>
         <div class="stats-item">
           <p>
-            Clues Used: <span id="clue-count">{clueState.clueCount}</span>
+            Clues Used: <span id="clue-count">{(() => Object.values(clues).filter((x) => x.shown === true).length)()}</span>
           </p>
         </div>
       </div>
 
       <div id="incorrect-guesses">
         {incorrectGuesses.length !== 0 ? displayIncorrectGuesses() : <></>}
+      </div>
+
+      <div id="result">
+        {showState()}
+      </div>
+
+      <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-10 border-2 rounded-xl p-8">
+          <div className="flex flex-col text-center">
+            <PlayerText blurred={state !== "correct" && state !== "reveal"}>{player?.name}</PlayerText>
+            <PlayerImageWrapper blurred={state !== "correct" && state !== "reveal"}>
+              <PlayerImage id="player-image" src={player?.image_url} alt="Player Image" width={139} height={181}/>
+              <img className="absolute z-0 w-[69px] h-[90px]" src={`https://www.transfermarkt.de/images/wappen/head/${player?.current_club_id}.png`} />
+            </PlayerImageWrapper> 
+          </div>
+          <div className="flex flex-col pl-4 space-y-4 items-start justify-start">
+            { Object.entries(clues ?? {}).map(([k, v], i) => {
+                return (
+                  <ClueCard onClick={(e) => {
+                    e.preventDefault();
+                    if (clues[k].shown !== false) return;
+                    let newClues = { ...clues };
+                    newClues[k].shown = true;
+                    setClues(newClues);
+                  }}
+                  clicked={clues[k].shown === true}
+                  >
+                    <p className="text-base font-medium text-gray-900">{clues[k].displayName}</p>
+                    <ClueText clicked={clues[k].shown}>{clues[k].clue}</ClueText>
+                  </ClueCard>
+                )
+              })
+            }
+          </div>
+        </div>
       </div>
 
       <div id="guess-form">
@@ -377,56 +376,6 @@ const TimelessMode = () => {
         <button id="submit-button" onClick={checkGuess}>
           Submit
         </button>
-      </div>
-
-      <div id="result">
-        {showState()}
-        {clueState.clues.map((x, i) => (
-          <div key={i}>{x}</div>
-        ))}
-      </div>
-
-      <div id="clue-section">
-        <label id="clue-label" for="clue-buttons">
-          Use a Clue:
-        </label>
-        <div id="clue-buttons">
-          <button
-            class="clue-button"
-            onClick={() => provideClue({ type: "club" })}
-            disabled={clueState.clueTypes.includes("club")}
-          >
-            Club
-          </button>
-          <button
-            class="clue-button"
-            onClick={() => provideClue({ type: "position" })}
-            disabled={clueState.clueTypes.includes("position")}
-          >
-            Position
-          </button>
-          <button
-            class="clue-button"
-            onClick={() => provideClue({ type: "birthday" })}
-            disabled={clueState.clueTypes.includes("birthday")}
-          >
-            Birthday
-          </button>
-          <button
-            class="clue-button"
-            onClick={() => provideClue({ type: "birthplace" })}
-            disabled={clueState.clueTypes.includes("birthplace")}
-          >
-            Birthplace
-          </button>
-          <button
-            class="clue-button"
-            onClick={() => provideClue({ type: "peak_market_value" })}
-            disabled={clueState.clueTypes.includes("peak_market_value")}
-          >
-            Peak Market Value
-          </button>
-        </div>
       </div>
 
       <div class="button-section">
