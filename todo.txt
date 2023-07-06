@@ -24,3 +24,9 @@ specific functionality/issues
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 - nav bar line w difficultySelect
 - give up button disabled when player guess is correct
+- 1. Need to update clues used so that it doesn’t show “5” when clues are revealed, 
+- 2. Give up button available when guessing, new game button available when player has been revealed, 
+- 3. Fix top part (difficulty/title/navigation)
+- guess form above player card
+- new game/give up beneath
+- club logo should be unblurred when club is revealed, should also be designed differently imo
