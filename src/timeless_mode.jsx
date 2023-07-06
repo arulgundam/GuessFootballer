@@ -138,7 +138,6 @@ const TimelessMode = () => {
       case "correct":
         return (
           <div>
-            <p>Correct!</p>
             <Confetti recycle={false} />
           </div>
         );
