@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "preact": "^10.13.2",
-    "preact-router": "^4.1.1"
+    "preact-router": "^4.1.1",
+    "react-confetti": "^6.1.0",
+    "tailwind-styled-components": "^2.2.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
