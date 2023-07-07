@@ -34,19 +34,20 @@ const ClueCard = tw.div`
   flex
   flex-col
   border
+  border-black
   rounded-lg
   p-4
   w-full
-  ${(p) => (p.clicked ? "" : "hover:bg-gray-200")}
+  ${(p) => (p.clicked ? "" : "hover:bg-gray-300")}
   cursor-pointer
 `;
 
 const ClueText = tw.p`
   text-sm
-  text-gray-400
+  text-gray-700
   ${(p) => (p.clicked ? "" : "blur-md")}
   transition-all
-`
+`;
 
 const getMonthName = (monthNumber) => {
   var months = [
