@@ -9,9 +9,7 @@ specific functionality/issues
 - FIT ON ONE PAGE (NO SCRLLING)
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 - nav bar line w difficultySelect (colored bar)
-- properly format club img
 - update transfer data
 - color banner
 - logo
 - make clues darker than card
-- fix incorrect guess
