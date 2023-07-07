@@ -14,3 +14,4 @@ specific functionality/issues
 - color banner
 - logo
 - make clues darker than card
+- fix incorrect guess
