@@ -263,14 +263,27 @@ const TimelessMode = () => {
 
       setState("correct");
       showAllClues();
-      guessInput.current.value = ""; // Clear the guess input
     } else {
       setStreakCount(0);
       setState("incorrect");
       setIncorrectGuesses([...incorrectGuesses, guess]);
-      guessInput.current.value = ""; // Clear the guess input
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if ((state === "correct" || state === "reveal") && event.key === "Enter") {
+        startNewGame();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [state, startNewGame]);
+
 
   const revealPlayer = () => {
     setState("reveal");
