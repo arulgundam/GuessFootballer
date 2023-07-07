@@ -9,8 +9,7 @@ const PlayerImage = tw.img`
   ${(p) => (p.blurred ? "" : "")}
   w-[278px]
   h-[362px]
-  border
-  border-gray-700
+  border-none
   transition-all
 `;
 
@@ -24,7 +23,10 @@ const PlayerText = tw.p`
 
 const PlayerImageWrapper = tw.div`
   flex
-  relative
+  flex-col
+  items-center
+  rounded-xl
+  overflow-hidden
   ${(p) => (p.blurred ? "blur-xl" : "")}
 `;
 

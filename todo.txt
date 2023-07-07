@@ -8,10 +8,9 @@ specific functionality/issues
 - needs to look same in resized windows
 - FIT ON ONE PAGE (NO SCRLLING)
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
-- nav bar line w difficultySelect
+- nav bar line w difficultySelect (colored bar)
 - properly format club img
 - change color of card (yellow, red, green) based on state
-- curve player image box
 - update transfer data
 - color banner
 - logo
