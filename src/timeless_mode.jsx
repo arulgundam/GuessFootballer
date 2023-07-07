@@ -256,6 +256,7 @@ const TimelessMode = () => {
       guess.toLowerCase() === playerName ||
       guess.toLowerCase() === playerLastName
     ) {
+      // Correct guess
       setStreakCount((count) => count + 1);
       if (streakCount + 1 > topStreak) {
         setTopStreak(streakCount + 1);
@@ -263,13 +264,17 @@ const TimelessMode = () => {
   
       setState("correct");
       showAllClues();
-      guessInput.current.value = ""; // Empty the guess form
     } else {
+      // Incorrect guess
       setStreakCount(0);
       setState("incorrect");
       setIncorrectGuesses([...incorrectGuesses, guess]);
     }
+  
+    // Clear the guess input field
+    guessInput.current.value = "";
   };
+  
   
 
   useEffect(() => {
