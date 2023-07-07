@@ -19,6 +19,7 @@ const PlayerText = tw.p`
   pb-4
   ${(p) => (p.blurred ? "blur-md" : "")}
   select-none
+  text-black
 `;
 
 const PlayerImageWrapper = tw.div`
@@ -28,6 +29,7 @@ const PlayerImageWrapper = tw.div`
   rounded-xl
   overflow-hidden
   ${(p) => (p.blurred ? "blur-xl" : "")}
+  border border-black
 `;
 
 const ClueCard = tw.div`
@@ -44,7 +46,7 @@ const ClueCard = tw.div`
 
 const ClueText = tw.p`
   text-sm
-  text-gray-700
+  text-gray-900
   ${(p) => (p.clicked ? "" : "blur-md")}
   transition-all
 `;
