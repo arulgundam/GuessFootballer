@@ -10,7 +10,7 @@ specific functionality/issues
 -   https://tailwindcss.com/docs/overflow#hiding-content-that-overflows
 - nav bar line w difficultySelect (colored bar)
 - properly format club img
-- change color of card (yellow, red, green) based on state
 - update transfer data
 - color banner
 - logo
+- make clues darker than card
