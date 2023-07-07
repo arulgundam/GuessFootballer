@@ -226,6 +226,7 @@ const TimelessMode = () => {
   };
 
   const startNewGame = async () => {
+    guessInput.current.value = "";
     const players = await loadPlayers();
     startGame(players);
   };
@@ -246,12 +247,12 @@ const TimelessMode = () => {
     const guess = sanitizeInput(guessInput.current.value.trim());
     const playerName = sanitizeInput(player.name.toLowerCase());
     const playerLastName = sanitizeInput(player.last_name.toLowerCase());
-  
+
     if (guess === "") {
       // No guess input, do not display the message
       return;
     }
-  
+
     if (
       guess.toLowerCase() === playerName ||
       guess.toLowerCase() === playerLastName
@@ -261,7 +262,7 @@ const TimelessMode = () => {
       if (streakCount + 1 > topStreak) {
         setTopStreak(streakCount + 1);
       }
-  
+
       setState("correct");
       showAllClues();
     } else {
@@ -270,12 +271,12 @@ const TimelessMode = () => {
       setState("incorrect");
       setIncorrectGuesses([...incorrectGuesses, guess]);
     }
-  
+
     // Clear the guess input field
     guessInput.current.value = "";
   };
-  
-  
+
+
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -342,8 +343,8 @@ const TimelessMode = () => {
       </div>
 
 
-      <div id="incorrect-guesses">
-        {incorrectGuesses.length !== 0 ? displayIncorrectGuesses() : <></>}
+      <div id="incorrect-guesses" style={{ marginBottom: `${incorrectGuesses.length !== 0 ? '20px' : '20px'}`, minHeight: '1em' }}>
+        {incorrectGuesses.length !== 0 ? displayIncorrectGuesses() : null}
       </div>
 
       <div id="result">
