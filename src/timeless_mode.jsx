@@ -263,6 +263,7 @@ const TimelessMode = () => {
       setStreakCount(0);
       setState("incorrect");
       setIncorrectGuesses([...incorrectGuesses, guess]);
+      guessInput.current.value = ""; // Clear the guess input
     }
   };
 
