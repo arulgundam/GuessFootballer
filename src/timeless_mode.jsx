@@ -246,12 +246,12 @@ const TimelessMode = () => {
     const guess = sanitizeInput(guessInput.current.value.trim());
     const playerName = sanitizeInput(player.name.toLowerCase());
     const playerLastName = sanitizeInput(player.last_name.toLowerCase());
-
+  
     if (guess === "") {
       // No guess input, do not display the message
       return;
     }
-
+  
     if (
       guess.toLowerCase() === playerName ||
       guess.toLowerCase() === playerLastName
@@ -260,15 +260,17 @@ const TimelessMode = () => {
       if (streakCount + 1 > topStreak) {
         setTopStreak(streakCount + 1);
       }
-
+  
       setState("correct");
       showAllClues();
+      guessInput.current.value = ""; // Empty the guess form
     } else {
       setStreakCount(0);
       setState("incorrect");
       setIncorrectGuesses([...incorrectGuesses, guess]);
     }
   };
+  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
