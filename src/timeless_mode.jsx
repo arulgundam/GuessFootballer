@@ -329,7 +329,7 @@ const TimelessMode = () => {
       </div>
 
       <div className="flex items-center justify-center">
-        <div className="flex items-center justify-center space-x-10 border-2 border-black rounded-xl p-8">
+      <div className={`flex items-center justify-center space-x-10 border-2 border-black rounded-xl p-8 ${state === "initial" ? "bg-yellow-200" : state === "reveal" ? "bg-red-200" : state === "correct" ? "bg-green-200" : ""}`}>
           <div className="flex flex-col text-center">
             <PlayerText blurred={state !== "correct" && state !== "reveal"}>{player?.name}</PlayerText>
             <PlayerImageWrapper blurred={state !== "correct" && state !== "reveal"}>
