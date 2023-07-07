@@ -15,4 +15,3 @@ specific functionality/issues
 - update transfer data
 - color banner
 - logo
-- streak isn't working properly

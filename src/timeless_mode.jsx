@@ -270,6 +270,7 @@ const TimelessMode = () => {
   const revealPlayer = () => {
     setState("reveal");
     showAllClues();
+    setStreakCount(0); // Reset streak count to zero
   };
 
   const displayIncorrectGuesses = () => (
