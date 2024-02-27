@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+    margin-top: 0;
+    font-size: 40px;
+    color: #222222;
+    margin-bottom: 30px;
+  }
+
+.navigation {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+.navigation li {
+    list-style: none;
+    margin-left: 20px;
+  }
+  

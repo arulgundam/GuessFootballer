@@ -426,11 +426,6 @@ const TimelessMode = () => {
             <span class="soccer-icon"></span> About
           </a>
         </li>
-        <li>
-          <a href="/contact">
-            <span class="soccer-icon"></span> Contact
-          </a>
-        </li>
       </ul>
     </>
   );

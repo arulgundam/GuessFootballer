@@ -2,18 +2,17 @@ const About = () => (
   <>
     <div>
       <h1>About</h1>
-      <p>This is the about section of the website.</p>
+      <a href="https://github.com/arulgundam/GuessFootballer">Source Code</a>
+      <p></p>
+      <a href="https://www.linkedin.com/in/arul-gundam/">LinkedIn</a>
     </div>
 
-    <ul class="top-right">
+    <ul class="navigation">
       <li>
-        <a href="/">Home</a>
+        <a href="/">Game</a>
       </li>
       <li>
         <a href="/about">About</a>
-      </li>
-      <li>
-        <a href="/contact">Contact</a>
       </li>
     </ul>
   </>
