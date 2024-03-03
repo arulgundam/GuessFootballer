@@ -22,3 +22,4 @@ Contributions to Guess the Footballer are welcome! If you have any ideas, bug fi
 ## Next Steps
 
 After initial launch, additional features will be added. These include timed challenges, a multiplayer mode, and the incorporation of different types of clues.
+
