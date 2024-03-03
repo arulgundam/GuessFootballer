@@ -1,9 +1,10 @@
 import "./timeless_mode.css";
+import React from 'preact';
 import { useEffect, useState, useRef, useReducer } from "preact/hooks";
 import tw from 'tailwind-styled-components';
 import Confetti from "react-confetti";
 
-const CSV_URL = "players_jun20_2023.csv";
+const CSV_URL = "/GuessFootballer/players_jun20_2023.csv";
 
 const PlayerImage = tw.img`
   ${(p) => (p.blurred ? "" : "")}
@@ -417,12 +418,12 @@ const TimelessMode = () => {
 
       <ul class="navigation">
         <li>
-          <a href="/">
+          <a href="/GuessFootballer">
             <span class="soccer-icon"></span> Game
           </a>
         </li>
         <li>
-          <a href="/about">
+          <a href="/GuessFootballer/about">
             <span class="soccer-icon"></span> About
           </a>
         </li>

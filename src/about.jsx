@@ -1,3 +1,5 @@
+import React from 'preact'
+
 const About = () => (
   <>
     <div>
@@ -10,10 +12,10 @@ const About = () => (
 
     <ul class="navigation">
       <li>
-        <a href="/">Game</a>
+        <a href="/GuessFootballer">Game</a>
       </li>
       <li>
-        <a href="/about">About</a>
+        <a href="/GuessFootballer/about">About</a>
       </li>
     </ul>
   </>
