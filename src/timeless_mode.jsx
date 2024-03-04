@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useReducer } from "preact/hooks";
 import tw from 'tailwind-styled-components';
 import Confetti from "react-confetti";
 
-const CSV_URL = "/GuessFootballer/players.csv";
+const CSV_URL = "players.csv";
 
 const PlayerImage = tw.img`
   ${(p) => (p.blurred ? "" : "")}
